@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "952436541768",
+    "firebase_url": "https://orderfood-954d4.firebaseio.com",
+    "project_id": "orderfood-954d4",
+    "storage_bucket": "orderfood-954d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952436541768:android:4cd1c44a1382fe0b",
+        "android_client_info": {
+          "package_name": "com.example.vietvan.orderfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952436541768-sdkaies110d1r0ogmc8mt9i6un0rnp4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vietvan.orderfood",
+            "certificate_hash": "26654b73b86070c97513b44887ff9c9867cc5fa7"
+          }
+        },
+        {
+          "client_id": "952436541768-jhfv3vf6h9u4mvh7b5qj1bhl9u1fl0ui.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "952436541768-jhfv3vf6h9u4mvh7b5qj1bhl9u1fl0ui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl_wrY074Wev_Ct0MTO31Rngk5tgzkIzo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952436541768-jhfv3vf6h9u4mvh7b5qj1bhl9u1fl0ui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
