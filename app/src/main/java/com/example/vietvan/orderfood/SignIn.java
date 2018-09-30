@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -150,7 +151,6 @@ public class SignIn extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     progressDialog.dismiss();
-
                     //check if user not exist in database
                     if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
                         // get user information
@@ -159,6 +159,7 @@ public class SignIn extends AppCompatActivity {
 
                         if (user.getPassword().equals(edtPassword.getText().toString())) {
                             Common.currentUser = user;
+                            Log.d(TAG, "onDataChange: " + user);
                             startActivity(new Intent(SignIn.this, Home.class));
                             finish();
 

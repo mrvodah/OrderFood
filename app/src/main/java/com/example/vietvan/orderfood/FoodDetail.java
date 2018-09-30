@@ -129,26 +129,15 @@ public class FoodDetail extends AppCompatActivity implements RatingDialogListene
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    private void getRatingFood(String foodId) {
-
-        Query foodRating = ratingTbl.child(Common.currentUser.getPhone()).orderByChild("foodId").equalTo(foodId);
-
-        foodRating.addValueEventListener(new ValueEventListener() {
-            float count = 0, sum = 0;
-
+    private void getRatingFood(final String foodId) {
+        ratingTbl.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Rating item = postSnapshot.getValue(Rating.class);
+                if(dataSnapshot.child(foodId).exists()){
+                    String rate = (String) dataSnapshot.child(foodId).child("rateValue").getValue();
+                    ratingBar.setRating(Float.parseFloat(rate));
+                }
 
-                    sum += Integer.parseInt(item.getRateValue());
-                    count++;
-                }
-                Log.d(TAG, "onDataChange: " + sum + "/" + count);
-                if(count != 0){
-                    float ave = sum / count;
-                    ratingBar.setRating(ave);
-                }
             }
 
             @Override
@@ -156,7 +145,6 @@ public class FoodDetail extends AppCompatActivity implements RatingDialogListene
 
             }
         });
-
     }
 
     private void getDetailFood(String foodId) {
@@ -210,28 +198,27 @@ public class FoodDetail extends AppCompatActivity implements RatingDialogListene
     }
 
     @Override
-    public void onPositiveButtonClicked(int value, String comments) {
+    public void onPositiveButtonClicked(final int value, String comments) {
         //Get Rating and upload to firebase
         final Rating rating = new Rating(Common.currentUser.getPhone(),
                 foodId,
                 String.valueOf(value),
                 comments);
 
-        ratingTbl.child(Common.currentUser.getPhone()).addValueEventListener(new ValueEventListener() {
+        ratingTbl.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(Common.currentUser.getPhone()).exists()) {
-                    if(dataSnapshot.child(Common.currentUser.getPhone()).child(foodId).exists())
-                        //Remove old value
-                        ratingTbl.child(Common.currentUser.getPhone()).child(foodId).removeValue();
 
-                    //Update new value
-                    ratingTbl.child(Common.currentUser.getPhone()).child(foodId).setValue(rating);
-
-                } else
-                    ratingTbl.child(Common.currentUser.getPhone()).child(foodId).setValue(rating);
+                if(dataSnapshot.child(foodId).exists()){
+                    String rate = (String) dataSnapshot.child(foodId).child("rateValue").getValue();
+                    double ave = (value + Double.parseDouble(rate)) / 2;
+                    ratingTbl.child(foodId).child("rateValue").setValue((String.valueOf(ave)));
+                }
+                else
+                    ratingTbl.child(foodId).setValue(rating);
 
                 Toast.makeText(FoodDetail.this, "Thank yu for submit rating!", Toast.LENGTH_SHORT).show();
+                ratingTbl.removeEventListener(this);
             }
 
             @Override

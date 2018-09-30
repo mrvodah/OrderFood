@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,9 +82,9 @@ public class SplashScreen extends AppCompatActivity {
 
                         if (user.getPassword().equals(pwd)) {
                             Common.currentUser = user;
+                            Log.d("Splash", "onDataChange: " + user);
                             startActivity(new Intent(SplashScreen.this, Home.class));
                             finish();
-
                         } else {
                             Toast.makeText(SplashScreen.this, "Sign in failed!", Toast.LENGTH_SHORT).show();
                         }

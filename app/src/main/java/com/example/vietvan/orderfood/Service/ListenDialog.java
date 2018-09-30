@@ -43,7 +43,6 @@ public class ListenDialog extends Service implements ChildEventListener{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         requests.addChildEventListener(this);
-
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -56,22 +55,20 @@ public class ListenDialog extends Service implements ChildEventListener{
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
         // Trigger here
         Request request = dataSnapshot.getValue(Request.class);
-
         showNOtification(dataSnapshot.getKey(), request);
     }
 
     private void showNOtification(String key, Request request) {
         Intent intent = new Intent(getBaseContext(), OrderStatus.class);
         intent.putExtra("userPhone", request.getPhone()); // we need put user Phone, why
-
         PendingIntent contentIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext())
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setTicker("Mrvodah")
-                .setContentTitle("Mr.vodah")
+                .setTicker("...")
+                .setContentTitle("...")
                 .setContentText("Order #" + key + " was updated to " + Common.convertCodeToStatus(request.getStatus()))
                 .setContentIntent(contentIntent)
                 .setSmallIcon(R.mipmap.ic_launcher_round);

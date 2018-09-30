@@ -60,12 +60,10 @@ public class Database extends SQLiteAssetHelper {
         values.put("Discount", order.getDiscount());
 
         sqLiteDatabase.insert("OrderDetail", null, values);
-
     }
 
     public void cleanCart(){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-
         String query = String.format("Delete from OrderDetail");
 
         sqLiteDatabase.execSQL(query);

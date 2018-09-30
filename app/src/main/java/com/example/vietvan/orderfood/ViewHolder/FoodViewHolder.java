@@ -14,8 +14,8 @@ import com.example.vietvan.orderfood.R;
 
 public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public static ImageView food_image, fav_image, cart_image;
-    public static TextView food_name, food_price;
+    public ImageView food_image, fav_image, cart_image;
+    public TextView food_name, food_price;
 
     ItemClickListener itemClickListener;
 
@@ -30,6 +30,46 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
         itemView.setOnClickListener(this);
 
+    }
+
+    public ImageView getFood_image() {
+        return food_image;
+    }
+
+    public void setFood_image(ImageView food_image) {
+        this.food_image = food_image;
+    }
+
+    public ImageView getFav_image() {
+        return fav_image;
+    }
+
+    public void setFav_image(ImageView fav_image) {
+        this.fav_image = fav_image;
+    }
+
+    public ImageView getCart_image() {
+        return cart_image;
+    }
+
+    public void setCart_image(ImageView cart_image) {
+        this.cart_image = cart_image;
+    }
+
+    public TextView getFood_name() {
+        return food_name;
+    }
+
+    public void setFood_name(TextView food_name) {
+        this.food_name = food_name;
+    }
+
+    public TextView getFood_price() {
+        return food_price;
+    }
+
+    public void setFood_price(TextView food_price) {
+        this.food_price = food_price;
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener) {

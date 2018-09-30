@@ -110,7 +110,6 @@ public class Cart extends AppCompatActivity {
                 showAlertDialog();
             }
         });
-
     }
 
     private void showAlertDialog() {
@@ -121,7 +120,9 @@ public class Cart extends AppCompatActivity {
         address = v.findViewById(R.id.edtAddress);
         comment = v.findViewById(R.id.edtComment);
 
-        final AlertDialog alert = new AlertDialog.Builder(Cart.this)
+        cart.clear();
+        cart.addAll(new Database(this).getCarts());
+        new AlertDialog.Builder(Cart.this)
                 .setTitle("One more step")
                 .setMessage("Enter your address")
                 .setView(v)
@@ -129,12 +130,18 @@ public class Cart extends AppCompatActivity {
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        // calculate total price
+                        int ntotal = 0;
+                        for (Order order : cart)
+                            ntotal += Integer.parseInt(order.getPrice()) * Integer.parseInt(order.getQuantity());
+
                         // Create request
                         Request request = new Request(
                                 Common.currentUser.getPhone(),
                                 Common.currentUser.getName(),
                                 address.getText().toString(),
-                                total.getText().toString(),
+                                String.valueOf(ntotal),
                                 "0",
                                 comment.getText().toString(),
                                 cart
@@ -147,7 +154,7 @@ public class Cart extends AppCompatActivity {
 
                         // Clean Cart
                         new Database(Cart.this).cleanCart();
-                        Toast.makeText(Cart.this, "Thank youu, Order Place", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Cart.this, "Thank you, Order Place", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 })
@@ -173,10 +180,8 @@ public class Cart extends AppCompatActivity {
 
         Locale locale = new Locale("en", "US");
         NumberFormat format = NumberFormat.getCurrencyInstance(locale);
-        ;
         total.setText(format.format(ntotal));
         swipeLayout.setRefreshing(false);
-
 
     }
 

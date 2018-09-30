@@ -180,7 +180,6 @@ public class Home extends AppCompatActivity
         // register service
         Intent service = new Intent(Home.this, ListenDialog.class);
         startService(service);
-
     }
 
     @Override
@@ -208,29 +207,6 @@ public class Home extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.refresh) {
-            loadMenu();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -248,7 +224,6 @@ public class Home extends AppCompatActivity
             View v = LayoutInflater.from(Home.this).inflate(R.layout.change_password_layout, null);
 
             final MaterialEditText pw, npw, rpnpw;
-
             pw = v.findViewById(R.id.edtPw);
             npw = v.findViewById(R.id.edtnPw);
             rpnpw = v.findViewById(R.id.edtrpnPw);

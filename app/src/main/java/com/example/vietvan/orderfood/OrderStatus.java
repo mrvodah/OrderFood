@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +40,7 @@ public class OrderStatus extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference requests;
+    int sum;
 
     FirebaseRecyclerAdapter<Request, OrderViewHolder> adapter;
 
@@ -53,15 +58,16 @@ public class OrderStatus extends AppCompatActivity {
         rvOrder.setLayoutManager(layoutManager);
         rvOrder.setHasFixedSize(true);
 
-        if(getIntent() == null)
+        if(getIntent().getStringExtra("userPhone") == null)
             loadOrders(Common.currentUser.getPhone());
         else
             loadOrders(getIntent().getStringExtra("userPhone"));
-
     }
 
     private void loadOrders(String phone) {
-
+        sum = 0;
+        Locale locale = new Locale("en", "US");
+        final NumberFormat format = NumberFormat.getCurrencyInstance(locale);
         adapter = new FirebaseRecyclerAdapter<Request, OrderViewHolder>(
                 Request.class,
                 R.layout.order_layout,
@@ -70,13 +76,17 @@ public class OrderStatus extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(OrderViewHolder viewHolder, Request model, int position) {
-                viewHolder.tvOrderId.setText(adapter.getRef(position).getKey());
-                viewHolder.tvOrderStatus.setText(convertCodeToStatus(model.getStatus()));
-                viewHolder.tvOrderPhone.setText(model.getPhone());
-                viewHolder.tvOrderAddress.setText(model.getAddress());
+                viewHolder.getTvOrderId().setText("#" + adapter.getRef(position).getKey());
+                viewHolder.getTvOrderStatus().setText(convertCodeToStatus(model.getStatus()));
+                viewHolder.getTvOrderPhone().setText(model.getPhone());
+                viewHolder.getTvOrderAddress().setText(model.getAddress());
+
+                sum += Integer.valueOf(model.getTotal());
+                orderTotal.setText(format.format(sum));
             }
         };
 
+        adapter.notifyDataSetChanged();
         rvOrder.setAdapter(adapter);
     }
 
@@ -88,9 +98,5 @@ public class OrderStatus extends AppCompatActivity {
             return "On my way";
         else
             return "Shipped";
-    }
-
-    @OnClick(R.id.order_btnPlaceOrder)
-    public void onViewClicked() {
     }
 }

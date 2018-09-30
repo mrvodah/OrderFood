@@ -11,11 +11,9 @@ import com.example.vietvan.orderfood.R;
  * Created by VietVan on 13/06/2018.
  */
 
-public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class OrderViewHolder extends RecyclerView.ViewHolder{
 
     public TextView tvOrderId, tvOrderStatus, tvOrderPhone, tvOrderAddress;
-
-    private ItemClickListener itemClickListener;
 
     public OrderViewHolder(View itemView) {
         super(itemView);
@@ -25,17 +23,37 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
         tvOrderPhone = itemView.findViewById(R.id.order_phone);
         tvOrderAddress = itemView.findViewById(R.id.order_address);
 
-        itemView.setOnClickListener(this);
     }
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
+    public TextView getTvOrderId() {
+        return tvOrderId;
     }
 
-    @Override
-    public void onClick(View v) {
-        itemClickListener.onClick(v, getAdapterPosition(), false);
+    public void setTvOrderId(TextView tvOrderId) {
+        this.tvOrderId = tvOrderId;
     }
 
+    public TextView getTvOrderStatus() {
+        return tvOrderStatus;
+    }
 
+    public void setTvOrderStatus(TextView tvOrderStatus) {
+        this.tvOrderStatus = tvOrderStatus;
+    }
+
+    public TextView getTvOrderPhone() {
+        return tvOrderPhone;
+    }
+
+    public void setTvOrderPhone(TextView tvOrderPhone) {
+        this.tvOrderPhone = tvOrderPhone;
+    }
+
+    public TextView getTvOrderAddress() {
+        return tvOrderAddress;
+    }
+
+    public void setTvOrderAddress(TextView tvOrderAddress) {
+        this.tvOrderAddress = tvOrderAddress;
+    }
 }
