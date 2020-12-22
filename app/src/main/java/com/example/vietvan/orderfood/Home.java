@@ -219,70 +219,70 @@ public class Home extends AppCompatActivity
             startActivity(new Intent(Home.this, Cart.class));
         } else if (id == R.id.nav_orders) {
             startActivity(new Intent(Home.this, OrderStatus.class));
-        } else if (id == R.id.nav_changpw) {
-
-            View v = LayoutInflater.from(Home.this).inflate(R.layout.change_password_layout, null);
-
-            final MaterialEditText pw, npw, rpnpw;
-            pw = v.findViewById(R.id.edtPw);
-            npw = v.findViewById(R.id.edtnPw);
-            rpnpw = v.findViewById(R.id.edtrpnPw);
-
-            new AlertDialog.Builder(Home.this)
-                    .setTitle("CHANGE PASSWORD")
-                    .setMessage("Please fill all information")
-                    .setView(v)
-                    .setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            if (pw.getText().toString().equals(Common.currentUser.getPassword()) &&
-                                    npw.getText().toString().equals(rpnpw.getText().toString())) {
-
-//                                Common.currentUser.setPassword(npw.getText().toString());
-//                                user.child(Common.currentUser.getPhone()).setValue(
-//                                        new User(
-//                                                Common.currentUser.getName(),
-//                                                Common.currentUser.getPassword(),
-//                                                Common.currentUser.getIsStaff(),
-//                                                Common.currentUser.getSecureCode()
-//                                        )
-//                                );
+//        } else if (id == R.id.nav_changpw) {
 //
-//                                Toast.makeText(Home.this, "Password changed!", Toast.LENGTH_SHORT).show();
-
-                                Map<String, Object> map = new HashMap<>();
-                                map.put("password", npw.getText().toString());
-
-                                user.child(Common.currentUser.getPhone()).updateChildren(map)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(Home.this, "Password was updated!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(Home.this, "Update Password get error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-
-                            } else {
-
-                                Toast.makeText(Home.this, "Wrong Password or New Password or Repeat new Password not same! Please check again~", Toast.LENGTH_SHORT).show();
-
-                            }
-
-                        }
-                    })
-                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
+//            View v = LayoutInflater.from(Home.this).inflate(R.layout.change_password_layout, null);
+//
+//            final MaterialEditText pw, npw, rpnpw;
+//            pw = v.findViewById(R.id.edtPw);
+//            npw = v.findViewById(R.id.edtnPw);
+//            rpnpw = v.findViewById(R.id.edtrpnPw);
+//
+//            new AlertDialog.Builder(Home.this)
+//                    .setTitle("CHANGE PASSWORD")
+//                    .setMessage("Please fill all information")
+//                    .setView(v)
+//                    .setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                            if (pw.getText().toString().equals(Common.currentUser.getPassword()) &&
+//                                    npw.getText().toString().equals(rpnpw.getText().toString())) {
+//
+////                                Common.currentUser.setPassword(npw.getText().toString());
+////                                user.child(Common.currentUser.getPhone()).setValue(
+////                                        new User(
+////                                                Common.currentUser.getName(),
+////                                                Common.currentUser.getPassword(),
+////                                                Common.currentUser.getIsStaff(),
+////                                                Common.currentUser.getSecureCode()
+////                                        )
+////                                );
+////
+////                                Toast.makeText(Home.this, "Password changed!", Toast.LENGTH_SHORT).show();
+//
+//                                Map<String, Object> map = new HashMap<>();
+//                                map.put("password", npw.getText().toString());
+//
+//                                user.child(Common.currentUser.getPhone()).updateChildren(map)
+//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//                                                Toast.makeText(Home.this, "Password was updated!", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        })
+//                                        .addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                Toast.makeText(Home.this, "Update Password get error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        });
+//
+//                            } else {
+//
+//                                Toast.makeText(Home.this, "Wrong Password or New Password or Repeat new Password not same! Please check again~", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//
+//                        }
+//                    })
+//                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    })
+//                    .show();
         } else if (id == R.id.nav_log_out) {
 
             //Delete rememeber user & pwd
@@ -291,6 +291,7 @@ public class Home extends AppCompatActivity
             Intent intent = new Intent(Home.this, SignIn.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
